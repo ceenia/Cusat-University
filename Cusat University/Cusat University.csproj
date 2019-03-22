@@ -45,7 +45,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -126,17 +138,76 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\EnrollmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InstructorController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="DAL\SchoolConfiguration.cs" />
+    <Compile Include="DAL\SchoolContext.cs" />
+    <Compile Include="DAL\SchoolInitializer.cs" />
+    <Compile Include="DAL\SchoolInterceptorLogging.cs" />
+    <Compile Include="DAL\SchoolInterceptorTransientErrors.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Migrations\201903200327309_InitialCreate.cs" />
+    <Compile Include="Migrations\201903200327309_InitialCreate.Designer.cs">
+      <DependentUpon>201903200327309_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903212032441_ValidationAddedToPpty.cs" />
+    <Compile Include="Migrations\201903212032441_ValidationAddedToPpty.Designer.cs">
+      <DependentUpon>201903212032441_ValidationAddedToPpty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903212040014_ColumnFirstName.cs" />
+    <Compile Include="Migrations\201903212040014_ColumnFirstName.Designer.cs">
+      <DependentUpon>201903212040014_ColumnFirstName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903212045296_addedMinLength.cs" />
+    <Compile Include="Migrations\201903212045296_addedMinLength.Designer.cs">
+      <DependentUpon>201903212045296_addedMinLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903212056168_requiredPptyAdded.cs" />
+    <Compile Include="Migrations\201903212056168_requiredPptyAdded.Designer.cs">
+      <DependentUpon>201903212056168_requiredPptyAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903212115343_InstructorAndOffceAdeed.cs" />
+    <Compile Include="Migrations\201903212115343_InstructorAndOffceAdeed.Designer.cs">
+      <DependentUpon>201903212115343_InstructorAndOffceAdeed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903212159465_ComplexDataModel.cs" />
+    <Compile Include="Migrations\201903212159465_ComplexDataModel.Designer.cs">
+      <DependentUpon>201903212159465_ComplexDataModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903220256438_DepartmentSP.cs" />
+    <Compile Include="Migrations\201903220256438_DepartmentSP.Designer.cs">
+      <DependentUpon>201903220256438_DepartmentSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903220322301_RowVersion.cs" />
+    <Compile Include="Migrations\201903220322301_RowVersion.Designer.cs">
+      <DependentUpon>201903220322301_RowVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Enrollment.cs" />
+    <Compile Include="Models\Instructor.cs" />
+    <Compile Include="Models\OfficeAssignment.cs" />
+    <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AssignedCourseData.cs" />
+    <Compile Include="ViewModels\EnrollmentDateGroup.cs" />
+    <Compile Include="ViewModels\InstructorIndexData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -168,10 +239,34 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Student\Create.cshtml" />
+    <Content Include="Views\Student\Delete.cshtml" />
+    <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Enrollment\Create.cshtml" />
+    <Content Include="Views\Enrollment\Delete.cshtml" />
+    <Content Include="Views\Enrollment\Details.cshtml" />
+    <Content Include="Views\Enrollment\Edit.cshtml" />
+    <Content Include="Views\Enrollment\Index.cshtml" />
+    <Content Include="Views\Course\Create.cshtml" />
+    <Content Include="Views\Course\Delete.cshtml" />
+    <Content Include="Views\Course\Details.cshtml" />
+    <Content Include="Views\Course\Edit.cshtml" />
+    <Content Include="Views\Course\Index.cshtml" />
+    <Content Include="Views\Instructor\Create.cshtml" />
+    <Content Include="Views\Instructor\Delete.cshtml" />
+    <Content Include="Views\Instructor\Details.cshtml" />
+    <Content Include="Views\Instructor\Edit.cshtml" />
+    <Content Include="Views\Instructor\Index.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\Delete.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -185,6 +280,35 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201903200327309_InitialCreate.resx">
+      <DependentUpon>201903200327309_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903212032441_ValidationAddedToPpty.resx">
+      <DependentUpon>201903212032441_ValidationAddedToPpty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903212040014_ColumnFirstName.resx">
+      <DependentUpon>201903212040014_ColumnFirstName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903212045296_addedMinLength.resx">
+      <DependentUpon>201903212045296_addedMinLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903212056168_requiredPptyAdded.resx">
+      <DependentUpon>201903212056168_requiredPptyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903212115343_InstructorAndOffceAdeed.resx">
+      <DependentUpon>201903212115343_InstructorAndOffceAdeed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903212159465_ComplexDataModel.resx">
+      <DependentUpon>201903212159465_ComplexDataModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903220256438_DepartmentSP.resx">
+      <DependentUpon>201903220256438_DepartmentSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903220322301_RowVersion.resx">
+      <DependentUpon>201903220322301_RowVersion.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
