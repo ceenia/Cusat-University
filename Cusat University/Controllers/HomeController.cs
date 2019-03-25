@@ -1,5 +1,6 @@
 ﻿using Cusat_University.DAL;
 using Cusat_University.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -15,14 +16,21 @@ namespace Cusat_University.Controllers
 
         public ActionResult About()
         {
-            IQueryable<EnrollmentDateGroup> data = from student in db.Students
-                                                   group student by student.EnrollmentDate into dateGroup
-                                                   select new EnrollmentDateGroup()
-                                                   {
-                                                       EnrollmentDate = dateGroup.Key,
-                                                       StudentCount = dateGroup.Count(),
-                                                       Students = dateGroup.ToList()
-                                                   };
+            // Commenting out LINQ to show how to do the same thing in SQL.
+            /* IQueryable<EnrollmentDateGroup> data = from student in db.Students
+                                                    group student by student.EnrollmentDate into dateGroup
+                                                    select new EnrollmentDateGroup()
+                                                    {
+                                                        EnrollmentDate = dateGroup.Key,
+                                                        StudentCount = dateGroup.Count(),
+                                                        Students = dateGroup.ToList()
+                                                    };*/
+            // SQL version of the above LINQ code.
+            string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
+                + "FROM Person "
+                + "WHERE Discriminator = 'Student' "
+                + "GROUP BY EnrollmentDate";
+            IEnumerable<EnrollmentDateGroup> data = db.Database.SqlQuery<EnrollmentDateGroup>(query);
 
             return View(data.ToList());
         }

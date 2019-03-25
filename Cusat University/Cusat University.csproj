@@ -140,7 +140,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
-    <Compile Include="Controllers\EnrollmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -190,12 +189,17 @@
     <Compile Include="Migrations\201903220322301_RowVersion.Designer.cs">
       <DependentUpon>201903220322301_RowVersion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903242107100_Inheritance.cs" />
+    <Compile Include="Migrations\201903242107100_Inheritance.Designer.cs">
+      <DependentUpon>201903242107100_Inheritance.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\OfficeAssignment.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignedCourseData.cs" />
@@ -244,11 +248,6 @@
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
-    <Content Include="Views\Enrollment\Create.cshtml" />
-    <Content Include="Views\Enrollment\Delete.cshtml" />
-    <Content Include="Views\Enrollment\Details.cshtml" />
-    <Content Include="Views\Enrollment\Edit.cshtml" />
-    <Content Include="Views\Enrollment\Index.cshtml" />
     <Content Include="Views\Course\Create.cshtml" />
     <Content Include="Views\Course\Delete.cshtml" />
     <Content Include="Views\Course\Details.cshtml" />
@@ -264,6 +263,7 @@
     <Content Include="Views\Department\Details.cshtml" />
     <Content Include="Views\Department\Edit.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Course\UpdateCourseCredits.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -308,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903220322301_RowVersion.resx">
       <DependentUpon>201903220322301_RowVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903242107100_Inheritance.resx">
+      <DependentUpon>201903242107100_Inheritance.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
